@@ -41,15 +41,6 @@ const insertIngredients = function (db, callback) {
   });
 }
 
-const findRecipes = function (db, callback) {
-  const collection = db.collection('documents');
-  collection.find({}).toArray(function (err, docs) {
-    console.log("Found the following records");
-    console.log(docs)
-    callback(docs);
-  });
-}
-
 client.connect(function(err) {
   console.log("Connected successfully to server");
   const db = client.db(dbName);
