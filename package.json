@@ -1,0 +1,35 @@
+{
+  "name": "ubhacking",
+  "version": "1.0.0",
+  "description": "Project for UB Hacking 2018 Hackathon",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://mohitncode@gitlab.com/mohitncode/ubhacking.git"
+  },
+  "keywords": [
+    "ubhacking",
+    "ub",
+    "hacking",
+    "wegmans",
+    "api",
+    "challenge"
+  ],
+  "author": "Mohit Delhiwala",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://gitlab.com/mohitncode/ubhacking/issues"
+  },
+  "homepage": "https://gitlab.com/mohitncode/ubhacking#README",
+  "devDependencies": {
+    "express": "^4.16.4",
+    "jeet": "^7.2.0",
+    "mongodb": "^3.1.8",
+    "pug": "^2.0.3",
+    "pug-cli": "^1.0.0-alpha6",
+    "stylus": "^0.54.5"
+  }
+}
