@@ -1,6 +1,8 @@
 const assert = require('assert');
+const request = require('request');
 const fs = require('fs');
 const MongoClient = require('mongodb').MongoClient;
+const wegmansAccessKey = process.env.WEGMAN;
 const url = 'mongodb://localhost:27017';
 const dbName = 'whatsinmypantry';
 
@@ -26,20 +28,52 @@ const requiredIngredients = {
   "Roasted Vegetable Wellington": ["cauliflower", "salt", "pepper", "asparagus", "carrots", "pastry sheets", "olive oil", "musthrooms", "spinach"]
 };
 
-const recipesList = JSON.parse(fs.readFileSync('data.txt'))['recipes'];
+const fetchAllRecipes = function (callback) {
+  let url = 'https://api.wegmans.io/meals/recipes?api-version=2018-10-18'
+  const options = {
+    method: 'GET',
+    headers: {
+      'Subscription-Key': wegmansAccessKey
+    },
+    gzip: true
+  }
+  console.log('Making request to ', url, ' with access key ', wegmansAccessKey);
+  request.get(url, options, function (error, response, body) {
+    let recipes = JSON.parse(body)["recipes"];
+    callback(recipes);
+  });
+};
 
 let recipes = []
-for (let i = 0; i < recipesList.length; i++) {
-  recipe = recipesList[i];
-  for (recipeName in requiredIngredients) {
-    if (recipe['name'] == recipeName) {
-      recipe['ingredientsRequired'] = requiredIngredients[recipeName];
-      delete recipe['_links'];
-      recipes.push(recipe);
-      break;
+fetchAllRecipes(function (recipesList) {
+  for (let i = 0; i < recipesList.length; i++) {
+    recipe = recipesList[i];
+    for (recipeName in requiredIngredients) {
+      if (recipe['name'] == recipeName) {
+        recipe['ingredientsRequired'] = requiredIngredients[recipeName];
+        delete recipe['_links'];
+        recipes.push(recipe);
+        break;
+      }
     }
   }
-}
+
+  client.connect(function(err) {
+    console.log("Connected successfully to server");
+    const db = client.db(dbName);
+    insertIngredients(db, function (result) {
+      console.log("Inserted ingredients into the database successfully!");
+      client.close();
+    });
+
+    insertRecipes(db, function (result) {
+      console.log("Inserted recipes into the database successfully!");
+      client.close();
+    });
+  });
+
+  console.log(recipes);
+});
 
 const insertIngredients = function (db, callback) {
   const collection = db.collection('ingredients');
@@ -54,17 +88,3 @@ const insertRecipes = function (db, callback) {
     callback(result);
   });
 }
-
-client.connect(function(err) {
-  console.log("Connected successfully to server");
-  const db = client.db(dbName);
-  insertIngredients(db, function (result) {
-    console.log("Inserted ingredients into the database successfully!");
-    client.close();
-  });
-
-  insertRecipes(db, function (result) {
-    console.log("Inserted recipes into the database successfully!");
-    client.close();
-  });
-});
