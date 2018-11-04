@@ -8,11 +8,12 @@ const dbName = 'whatsinmypantry';
 
 const client = new MongoClient(url);
 const ingredientsList = ["beef", "bread", "butter", "cheese", "chicken", "eggs", "garlic",
-                        "green peppers", "mexican cheese", "milk", "mozarella", "onions",
+                        "green peppers", "mexican cheese", "milk", "mozzarella", "onions",
                         "peanut butter", "pepper", "pepperjack", "red peppers", "salt",
                         "tomatoes", "olive oil", "pears", "sweet potato noodles", "chives", "lemon",
                         "basil", "ricotta", "lasagna sheets", "tomato sauce", "cauliflower", "asparagus",
-                        "mushrooms", "spinach", "carrots", "pastry sheets"];
+                        "mushrooms", "spinach", "carrots", "pastry sheets", "mayonaisse", "bacon", "lettuce",
+                        "pizza dough", "flour", "pizza sauce", "pepperoni", "italian sausage", "black olives"];
 
 let ingredients = []
 for (let i = 0; i < ingredientsList.length; i++) {
@@ -25,7 +26,9 @@ for (let i = 0; i < ingredientsList.length; i++) {
 const requiredIngredients = {
   "Roasted Sweet Potato Noodles with Pears":  ["olive oil", "salt", "pepper", "pears", "sweet potato noodles", "butter", "chives", "lemon"],
   "Cheese Lasagna": ["ricotta", "basil", "salt", "lasagna sheets", "tomato sauce"],
-  "Roasted Vegetable Wellington": ["cauliflower", "salt", "pepper", "asparagus", "carrots", "pastry sheets", "olive oil", "musthrooms", "spinach"]
+  "Roasted Vegetable Wellington": ["cauliflower", "salt", "pepper", "asparagus", "carrots", "pastry sheets", "olive oil", "musthrooms", "spinach"],
+  "BLT": ["bread", "lettuce", "bacon", "mayonnaise"],
+  "Skillet Supreme Pizza": ["pizza dough", "flour", "olive oil", "pizza sauce", "mozzarella", "pepperoni", "italian sausage", "onion", "green peppers", "black olives"]
 };
 
 const fetchAllRecipes = function (callback) {
