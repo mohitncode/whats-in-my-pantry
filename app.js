@@ -9,6 +9,7 @@ const url = 'mongodb://localhost:27017/';
 const dbName = 'whatsinmypantry';
 const wegmansAccessKey = process.env.WEGMAN;
 const client = new MongoClient(url);
+let db = null;
 
 const findRecipes = function (filter, db, callback) {
   const collection = db.collection('recipes');
@@ -18,13 +19,10 @@ const findRecipes = function (filter, db, callback) {
       const recipe = docs[i];
       const ingredients = filter['ingredientsRequired'];
       const required = recipe['ingredientsRequired'];
-      console.log(filter);
-      console.log(required);
       if (canMakeRecipe(required, ingredients)) {
         recipes.push(recipe);
       }
     }
-    db.close();
     callback(recipes);
   });
 }
@@ -62,19 +60,15 @@ app.get('/', function (req, res) {
   res.render('index');
 });
 
-client.once('connect', function () {
-  co
-})
+client.connect(function (err) {
+  console.log('Connected to the database!');
+  db = client.db(dbName);
+});
 
 app.post('/', function (req, res) {
   let ingredients = req.body.ingredients;
-  client.connect(function (err) {
-    const db = client.db(dbName);
-    console.log("Connected successfully to server");
-    findRecipes({ ingredientsRequired : ingredients }, db, function (docs) {
-      client.close();
-      res.send(docs);
-    });
+  findRecipes({ ingredientsRequired : ingredients }, db, function (docs) {
+    res.send(docs);
   });
 });
 
