@@ -8,7 +8,9 @@ const client = new MongoClient(url);
 const ingredientsList = ["beef", "bread", "butter", "cheese", "chicken", "eggs", "garlic",
                         "green peppers", "mexican cheese", "milk", "mozarella", "onions",
                         "peanut butter", "pepper", "pepperjack", "red peppers", "salt",
-                        "tomatoes", "olive oil", "pears", "sweet potato noodles", "chives", "lemon"];
+                        "tomatoes", "olive oil", "pears", "sweet potato noodles", "chives", "lemon",
+                        "basil", "ricotta", "lasagna sheets", "tomato sauce", "cauliflower", "asparagus",
+                        "mushrooms", "spinach", "carrots", "pastry sheets"];
 
 let ingredients = []
 for (let i = 0; i < ingredientsList.length; i++) {
@@ -20,6 +22,8 @@ for (let i = 0; i < ingredientsList.length; i++) {
 
 const requiredIngredients = {
   "Roasted Sweet Potato Noodles with Pears":  ["olive oil", "salt", "pepper", "pears", "sweet potato noodles", "butter", "chives", "lemon"],
+  "Cheese Lasagna": ["ricotta", "basil", "salt", "lasagna sheets", "tomato sauce"],
+  "Roasted Vegetable Wellington": ["cauliflower", "salt", "pepper", "asparagus", "carrots", "pastry sheets", "olive oil", "musthrooms", "spinach"]
 };
 
 const recipesList = JSON.parse(fs.readFileSync('data.txt'))['recipes'];

@@ -27,7 +27,7 @@ $('#foodfinder').on('click', function (e) {
       }
     },
     error: function (err) {
-      console.error(err);
+      alert('No recipe found for what\'s in your pantry');
     }
   });
 });
