@@ -27,7 +27,7 @@ const requiredIngredients = {
   "Roasted Sweet Potato Noodles with Pears":  ["olive oil", "salt", "pepper", "pears", "sweet potato noodles", "butter", "chives", "lemon"],
   "Cheese Lasagna": ["ricotta", "basil", "salt", "lasagna sheets", "tomato sauce"],
   "Roasted Vegetable Wellington": ["cauliflower", "salt", "pepper", "asparagus", "carrots", "pastry sheets", "olive oil", "musthrooms", "spinach"],
-  "BLT": ["bread", "lettuce", "bacon", "mayonnaise"],
+  "BLT": ["bread", "lettuce", "tomato", "bacon"],
   "Skillet Supreme Pizza": ["pizza dough", "flour", "olive oil", "pizza sauce", "mozzarella", "pepperoni", "italian sausage", "onion", "green peppers", "black olives"]
 };
 
