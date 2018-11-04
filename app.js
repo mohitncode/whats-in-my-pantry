@@ -23,7 +23,29 @@ const findRecipes = function (filter, db, callback) {
         recipes.push(recipe);
       }
     }
-    callback(recipes);
+    if (recipes.length > 0) {
+      fetchRecipeDetails(recipes[0], callback);
+    } else {
+      callback(null);
+    }
+  });
+}
+
+// Function to fetch full information about a recipe given a list of recipes
+const fetchRecipeDetails = function (recipe, callback) {
+  let details = []
+  let baseUrl = 'https://api.wegmans.io/meals/recipes/'
+  const options = {
+    method: 'GET',
+    headers: {
+      'Subscription-Key': wegmansAccessKey
+    },
+  }
+  let id = recipe['id'];
+  let url = baseUrl + id + '?api-version=2018-10-18';
+  console.log('Making request to ', url, ' with access key ', wegmansAccessKey);
+  request.get(url, options, function (error, response, body) {
+    callback(response.body);
   });
 }
 
