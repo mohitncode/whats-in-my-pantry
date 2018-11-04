@@ -1,5 +1,4 @@
 #!/bin/sh
-stylus -w style.styl -o css/ &> /dev/null/
-pug -w index.pug &> /dev/null/
+stylus -w style.styl -o public/css/ &> /dev/null/
 mkdir data
 mongod --dbpath=./data/ &> /dev/null/
